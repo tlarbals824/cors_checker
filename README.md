@@ -101,8 +101,6 @@ To use CORS Checker with Claude Desktop, add the following configuration to your
 
 Make sure to replace `/Users/simgyumin/projects/cors_checker` with the actual absolute path to your CORS Checker directory.
 
-After setting up the configuration, you need to run the `cors_check_mcp.py` script to start the MCP server.
-
 ## License
 
 MIT
