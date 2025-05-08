@@ -82,6 +82,25 @@ The tool performs the following steps:
 - `0`: CORS is properly configured
 - `1`: CORS is not properly configured or an error occurred
 
+## Claude Desktop Integration
+
+To use CORS Checker with Claude Desktop, add the following configuration to your Claude Desktop settings:
+
+```json
+"CORS Checker": {
+    "command": "uv",
+    "args": [
+        "--directory",
+        "/Users/simgyumin/projects/cors_checker",
+        "run",
+        "python",
+        "cors_check_mcp.py"
+    ]
+}
+```
+
+Make sure to replace `/Users/simgyumin/projects/cors_checker` with the actual absolute path to your CORS Checker directory.
+
 ## License
 
 MIT
