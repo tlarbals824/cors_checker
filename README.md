@@ -42,7 +42,7 @@ Where:
 ### Options
 
 - `-m, --method METHOD`: HTTP method to use (default: GET)
-- `-H, --headers HEADER [HEADER ...]`: Additional headers to include in the request
+- `-H, --headers HEADER [HEADER ...]`: Additional headers to include in the request. Headers can be specified in the format "name:value" (e.g., "Content-Type:application/json"). If no value is provided, an empty string will be used as the value.
 - `-v, --verbose`: Print detailed information about the requests and responses
 
 ### Examples
@@ -59,7 +59,7 @@ Where:
 
 3. Check with custom headers:
    ```
-   ./cors_checker.py https://example.com https://api.example.com -H Content-Type X-Custom-Header
+   ./cors_checker.py https://example.com https://api.example.com -H Content-Type:application/json X-Custom-Header:12345
    ```
 
 4. Verbose output:

@@ -26,7 +26,7 @@ def check_cors(origin: str, target: str, method: str = "GET", headers: str = Non
         origin: 요청이 오는 출처 도메인
         target: 요청이 가는 대상 도메인
         method: preflight 요청에 사용할 HTTP 메서드
-        headers: preflight 요청에 포함할 추가 헤더(쉼표로 구분)
+        headers: preflight 요청에 포함할 추가 헤더(쉼표로 구분). 헤더는 "이름:값" 형식으로 지정할 수 있습니다(예: "Content-Type:application/json").
         verbose: 상세 정보 반환 여부
 
     Returns:
@@ -82,12 +82,12 @@ def get_cors_help() -> str:
         origin: 요청이 오는 출처 도메인
         target: 요청이 가는 대상 도메인
         method: preflight 요청에 사용할 HTTP 메서드
-        headers: preflight 요청에 포함할 추가 헤더(쉼표로 구분)
+        headers: preflight 요청에 포함할 추가 헤더(쉼표로 구분). 헤더는 "이름:값" 형식으로 지정할 수 있습니다(예: "Content-Type:application/json").
         verbose: 상세 정보 반환 여부
 
     예시:
         check_cors("https://example.com", "https://api.example.org")
-        check_cors("https://localhost:3000", "https://api.example.org", method="POST", headers="Content-Type,Authorization", verbose=True)
+        check_cors("https://localhost:3000", "https://api.example.org", method="POST", headers="Content-Type:application/json,Authorization:Bearer token123", verbose=True)
     """
 
 @mcp.prompt()
