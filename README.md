@@ -44,6 +44,8 @@ Where:
 - `-m, --method METHOD`: HTTP method to use (default: GET)
 - `-H, --headers HEADER [HEADER ...]`: Additional headers to include in the request. Headers can be specified in the format "name:value" (e.g., "Content-Type:application/json"). If no value is provided, an empty string will be used as the value.
 - `-v, --verbose`: Print detailed information about the requests and responses
+- `-t, --timeout SECONDS`: Request timeout in seconds (default: 10)
+- `-j, --json`: Output results in JSON format
 
 ### Examples
 
@@ -67,6 +69,16 @@ Where:
    ./cors_checker.py https://example.com https://api.example.com -v
    ```
 
+5. JSON format output:
+   ```
+   ./cors_checker.py https://example.com https://api.example.com -j
+   ```
+
+6. Custom timeout:
+   ```
+   ./cors_checker.py https://example.com https://api.example.com -t 5
+   ```
+
 ## How It Works
 
 The tool performs the following steps:
@@ -76,6 +88,30 @@ The tool performs the following steps:
 3. Verifies if the specified origin is allowed
 4. Performs an actual request with the specified method
 5. Checks if the actual response also includes the necessary CORS headers
+
+## Response Structure
+
+When using the JSON output option (`-j`), the tool returns a structured response:
+
+```json
+{
+  "success": true|false,
+  "message": "CORS is properly configured"|"CORS is not properly configured"|"Error message",
+  "preflight_check": {
+    "allowed": true|false,
+    "status_code": 200,
+    "headers": { ... },
+    "allowed_origin": "*"|"https://example.com"
+  },
+  "actual_check": {
+    "allowed": true|false,
+    "status_code": 200,
+    "headers": { ... },
+    "allowed_origin": "*"|"https://example.com"
+  },
+  "details": { ... }
+}
+```
 
 ## Exit Codes
 
@@ -99,8 +135,42 @@ To use CORS Checker with Claude Desktop, add the following configuration to your
 }
 ```
 
-Make sure to replace `/Users/simgyumin/projects/cors_checker` with the actual absolute path to your CORS Checker directory.
+### MCP (Model Context Protocol) Tools
 
-## License
+The CORS Checker provides the following MCP tools:
 
-MIT
+1. `check_cors`: Check CORS configuration and return results as text
+   ```python
+   check_cors(origin, target, method="GET", headers=None, verbose=False, timeout=10)
+   ```
+
+2. `check_cors_json`: Check CORS configuration and return results as JSON
+   ```python
+   check_cors_json(origin, target, method="GET", headers=None, verbose=False, timeout=10)
+   ```
+
+3. `validate_domain_url`: Check if a URL is valid
+   ```python
+   validate_domain_url(url)
+   ```
+
+### MCP Prompts
+
+The following prompts are available:
+
+1. `cors_check_prompt`: For basic CORS checks
+2. `cors_check_common_issues`: For troubleshooting common CORS issues
+
+## Recent Updates
+
+### Version 1.1.0 (2025-05-20)
+
+- Added timeout configuration option (`-t`, `--timeout`)
+- Added JSON format output option (`-j`, `--json`)
+- Improved error handling with specific error messages
+- Enhanced headers parsing logic
+- Structured response data for better programmatic usage
+- Added new MCP tools:
+  - `check_cors_json` for JSON output
+  - `validate_domain_url` for URL validation
+- Added new MCP prompt for common CORS issues troubleshooting
